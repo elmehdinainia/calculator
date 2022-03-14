@@ -42,3 +42,8 @@ button{
 .zero{
     flex: 2;
 }
+button:hover{
+    background-color: yellow;
+    color: black;
+    transition:.5s ease-in-out;
+}
