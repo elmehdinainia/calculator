@@ -6,6 +6,7 @@
 var screen= document.getElementById("screen");
 var queue = [];
 var input = 0;
+var haveDot=false;
 
 
 //?--------------------------------fonction-----------------------
@@ -24,11 +25,18 @@ function sup(){
     
 
 }
+function dot(){
+    if(haveDot === false){
+        display('.');
+        haveDot=true
+    }
+}
                          //!pour effacer 
 function clearScreen(){ 
     screen.value="";
     input = 0;
     queue = [] ;
+    haveDot=false;
     console.log(`input dand  : ${input}`);
 }
                         //!pour les opertation
@@ -38,7 +46,15 @@ function traiter(arg){
             input=parseFloat(input);
             queue.push(input);
             queue.push(arg);
-            
+            switch(arg){
+                case '-':
+                case '+':
+                case '*':
+                case '/':
+                case '%':
+                    haveDot=false;
+                    break;
+            }
             input=0;
             console.log(`queue quant faire traiter : ${queue}`);
             console.log(`input dand laffichage : ${input}`);
@@ -56,6 +72,7 @@ function calculer(queue) {
             console.log(`queue ${queue}`)
             console.log(`lenght : ${queue.length}`);
             console.log(`lenght : ${queue.length}`);
+
             var zero = true //!zero li rdi n9sam 3lih mkynch ;
             for (var i = 2 ; i < queue.length ; i++) {
                 
@@ -67,24 +84,35 @@ function calculer(queue) {
 
                     case "-" : 
                     queue[0] -= queue[i]
+
                     break;
 
                     case "*" : 
                     queue[0] *= queue[i]
-                    break;
 
+                    break;
                     case "/" : 
                     console.log(`zeeeeero index : ${queue[i]}`);
-                    if (queue[i] === 0){
+
+                    if (queue[i] == 0){
                         zero = false; 
                             clearScreen();
-                            screen.value = 'ERROR'
+                            queue[0] = 'ERROR'
+                        console.log('hhhhiihhh')
                         
                     } else {
                     queue[0] /= queue[i];
                     screen.value=queue[0];
                  }
                     break;
+                    case "%" : 
+                    queue[0] %= queue[i]
+
+                    break;
+
+
+
+                
                 }
                 console.log(`the resultat : ${queue[0]}`);
                 screen.value=queue[0];
